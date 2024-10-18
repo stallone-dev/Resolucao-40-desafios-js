@@ -1,0 +1,81 @@
+/*
+    My default DenoJS settings / configs from general projects
+    Version: 2024/09
+
+    Link: https://gist.github.com/stallone-dev/285b551c5368ad15185f66aecc0a6917
+
+    Based on https://docs.deno.com/runtime/fundamentals/configuration/
+*/
+{
+    // ======= Dependency area =======
+    "imports": {
+        "@deps": "./deps.ts",
+        "@std/http": "jsr:@std/http@^1.0.8"
+    },
+    "compilerOptions": {
+        // From web development, add this options
+        // For more details see: https://docs.deno.com/runtime/reference/ts_config_migration/#using-the-%22lib%22-property
+        "lib": [
+            "dom",
+            "dom.iterable",
+            "dom.asynciterable",
+            "deno.ns"
+        ]
+    },
+
+    // ======= Tasks area =======
+    // Run with "deno task __COMMAND__"
+    "tasks": {
+        "start:dev": "deno task build:dev && deno --allow-read --allow-net main.ts",
+        "start": "deno task build && deno --allow-read --allow-net main.ts",
+        "build:dev": "deno task build --watch",
+        "build": "deno --allow-net --allow-read --allow-write --allow-env --allow-run building.ts"
+    },
+
+    // ======= Source code standardization area =======
+    // Main formatter for source code styling
+    // For more details see https://docs.deno.com/runtime/fundamentals/linting_and_formatting/#available-options
+    "fmt": {
+        "exclude": [
+            "./build/"
+        ],
+        "lineWidth": 80,
+        "indentWidth": 4,
+        "useTabs": false,
+        "semiColons": true,
+        "singleQuote": false,
+        "proseWrap": "preserve"
+    },
+    // Main linter for source code standardization
+    // For more details see https://lint.deno.land/?q=&all=on
+    "lint": {
+        "exclude": [
+            "!*.ts"
+        ],
+        "rules": {
+            "tags": [
+                "recommended"
+            ],
+            "include": [
+                "eqeqeq",
+                "explicit-function-return-type",
+                "no-await-in-loop",
+                "no-boolean-literal-for-arguments",
+                "no-console",
+                "no-const-assign",
+                "no-eval",
+                "no-external-import",
+                "no-inferrable-types",
+                "no-non-null-assertion",
+                "no-self-compare",
+                "no-sparse-arrays",
+                "no-sync-fn-in-async-fn",
+                "no-throw-literal",
+                // "no-undef",
+                "single-var-declarator",
+                "triple-slash-reference",
+                "verbatim-module-syntax"
+            ]
+        }
+    }
+}
